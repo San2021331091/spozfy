@@ -1,1 +1,1 @@
-# A live sports app written in flutter.
+# A live sports app written in flutter and supabase.
