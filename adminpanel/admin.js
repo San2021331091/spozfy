@@ -111,8 +111,8 @@ const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
   {
     authenticate: async (email, password) => {
       if (
-        email === 'shimuda210@gmail.com' &&
-        password === 'admin123'
+        email === 'user@gmail.com' &&
+        password === 'password'
       ) {
         return { email };
       }
