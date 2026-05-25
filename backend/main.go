@@ -2,8 +2,11 @@ package main
 
 import (
 	"log"
+	"os"
+
 	"backend/config"
 	"backend/routes"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
@@ -13,7 +16,7 @@ func main() {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println(".env file not found, using Render environment variables")
 	}
 
 	config.ConnectDB()
@@ -30,6 +33,11 @@ func main() {
 	})
 
 	routes.SetupRoutes(app)
+	port := os.Getenv("PORT")
 
-	log.Fatal(app.Listen("0.0.0.0:3000"))
+	if port == "" {
+		port = "8000"
+	}
+
+	log.Fatal(app.Listen("0.0.0.0:" + port))
 }

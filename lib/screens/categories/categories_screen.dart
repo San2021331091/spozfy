@@ -1,16 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:spozfy/components/channel_filter/channels_filter_screen.dart';
 import 'package:spozfy/controllers/category_controller.dart';
+import 'package:spozfy/services/startup_service.dart';
 
-class CategoriesScreen extends StatelessWidget {
+
+class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
 
+  @override
+  State<CategoriesScreen> createState() =>
+      _CategoriesScreenState();
+}
+
+class _CategoriesScreenState
+    extends State<CategoriesScreen> {
+  final controller = Get.put(CategoryController());
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Show rewarded ad when screen opens
+    Future.delayed(
+      const Duration(seconds: 1),
+      () async {
+        await StartAppService.showRewardedAd();
+      },
+    );
+  }
+
   IconData getCategoryIcon(String category) {
-
     switch (category.toLowerCase()) {
-
       case 'football':
         return Icons.sports_soccer;
 
@@ -27,14 +50,10 @@ class CategoriesScreen extends StatelessWidget {
         return Icons.surfing;
 
       case 'combat':
-      case 'combat sports':
         return Icons.sports_mma;
 
       case 'bowling':
         return Icons.sports;
-
-      case 'racing':
-        return Icons.emoji_events;
 
       case 'poker':
         return Icons.casino;
@@ -42,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
       case 'athletics':
         return Icons.directions_run;
 
-      case 'sports tv':
+      case 'general sports':
         return Icons.tv;
 
       case 'women sports':
@@ -61,15 +80,10 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final controller = Get.put(CategoryController());
-
     return Scaffold(
-
       backgroundColor: Colors.black,
 
       appBar: AppBar(
-
         backgroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
@@ -85,23 +99,19 @@ class CategoriesScreen extends StatelessWidget {
       ),
 
       body: Obx(() {
-
         if (controller.isLoading.value) {
-
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
         return GridView.builder(
-
           padding: const EdgeInsets.all(14),
 
           itemCount: controller.categories.length,
 
           gridDelegate:
               const SliverGridDelegateWithFixedCrossAxisCount(
-
             crossAxisCount: 2,
             crossAxisSpacing: 14,
             mainAxisSpacing: 14,
@@ -109,27 +119,25 @@ class CategoriesScreen extends StatelessWidget {
           ),
 
           itemBuilder: (context, index) {
-
-            final category = controller.categories[index];
+            final category =
+                controller.categories[index];
 
             return GestureDetector(
-
               onTap: () {
-
                 Get.to(
                   () => ChannelsFilterScreen(
-                    id: category.id, category: category.name,
+                    id: category.id,
+                    category: category.name,
                   ),
                 );
               },
 
               child: Container(
-
                 decoration: BoxDecoration(
-
                   color: const Color(0xff111111),
 
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius:
+                      BorderRadius.circular(18),
 
                   border: Border.all(
                     color: Colors.white10,
@@ -137,11 +145,15 @@ class CategoriesScreen extends StatelessWidget {
                 ),
 
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  mainAxisAlignment:
+                      MainAxisAlignment.center,
 
+                  children: [
                     Icon(
-                      getCategoryIcon(category.name),
+                      getCategoryIcon(
+                        category.name,
+                      ),
+
                       color: Colors.white,
                       size: 48,
                     ),
@@ -150,17 +162,22 @@ class CategoriesScreen extends StatelessWidget {
 
                     Padding(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 8),
+                          const EdgeInsets.symmetric(
+                        horizontal: 8,
+                      ),
 
                       child: Text(
                         category.name,
 
-                        textAlign: TextAlign.center,
+                        textAlign:
+                            TextAlign.center,
 
-                        style: GoogleFonts.poppins(
+                        style:
+                            GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                          fontWeight:
+                              FontWeight.w600,
                         ),
                       ),
                     ),
