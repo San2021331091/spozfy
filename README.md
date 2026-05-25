@@ -1,8 +1,10 @@
+
+# Spozfy – Live Sports Streaming Platform
+
+
 <p align="center">
   <img src="assets/icon.png" width="120" alt="Spozfy Logo">
 </p>
-# Spozfy – Live Sports Streaming Platform
-
 A complete live sports streaming platform built with:
 
 * **Flutter Mobile App** (Android)
