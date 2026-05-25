@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spozfy/components/navigation_item/navigation_item.dart';
 import 'package:spozfy/screens/copyright/copyright_screen.dart';
+import 'package:spozfy/screens/network_stream/network_stream_screen.dart';
+import 'package:spozfy/screens/playlist/playlist_screen.dart';
 import 'package:spozfy/screens/privacy/privacy_screen.dart';
 import 'package:spozfy/screens/terms/terms_condition_screen.dart';
 
@@ -64,8 +66,18 @@ class NavigationMenu extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 children: [
-                  item(icon: Icons.stream, title: "Network Stream"),
-                  item(icon: Icons.playlist_play, title: "Playlists"),
+                  item(
+                      icon: Icons.stream,
+                      title: "Network Stream",
+                      ontap: () {
+                        Get.to(() => const NetworkStreamScreen());
+                      }),
+                  item(
+                      icon: Icons.playlist_play,
+                      title: "Playlists",
+                      ontap: () {
+                        Get.to(() => const PlaylistScreen());
+                      }),
                   const SizedBox(height: 20),
                   const Divider(color: Colors.white12),
                   item(

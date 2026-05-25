@@ -7,7 +7,10 @@ class MatchCard extends StatelessWidget {
   final String league;
   final String team1;
   final String team2;
+
+  /// UTC / ISO time from API
   final String time;
+
   final String status;
   final IconData icon1;
   final IconData icon2;
@@ -23,19 +26,52 @@ class MatchCard extends StatelessWidget {
     required this.icon2,
   });
 
+  /// Convert UTC time to local device timezone
+  String getLocalTime(String utcTime) {
+    try {
+      final utcDate = DateTime.parse(utcTime).toUtc();
+
+      final localDate = utcDate.toLocal();
+
+      return DateFormat('hh:mm a').format(localDate);
+    } catch (e) {
+      return utcTime;
+    }
+  }
+
+  /// GMT Offset
+  String getGMT() {
+    final offset = DateTime.now().timeZoneOffset;
+
+    final hours = offset.inHours;
+    final minutes = offset.inMinutes.remainder(60);
+
+    final sign = hours >= 0 ? "+" : "-";
+
+    return "GMT$sign${hours.abs().toString().padLeft(2, '0')}:${minutes.abs().toString().padLeft(2, '0')}";
+  }
+
   @override
   Widget build(BuildContext context) {
-    final formattedTime = DateFormat('hh:mm a').format(DateTime.parse(time));
+    final formattedTime = getLocalTime(time);
+
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 6,
+      ),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF0F2235), Color(0xFF172C44)],
+          colors: [
+            Color(0xFF0F2235),
+            Color(0xFF172C44),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: const Color(0xFF00E0B8).withValues(alpha: 0.2),
+          color: const Color(0xFF00E0B8)
+              .withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
@@ -48,11 +84,14 @@ class MatchCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // ================= TOP SECTION =================
+          // ================= TOP =================
           Row(
             children: [
-              const Icon(Icons.emoji_events,
-                  color: Color(0xFF00E0B8), size: 16),
+              const Icon(
+                Icons.emoji_events,
+                color: Color(0xFF00E0B8),
+                size: 16,
+              ),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -76,11 +115,12 @@ class MatchCard extends StatelessWidget {
                 width: constraints.maxWidth,
                 height: 18,
                 child: ClipRect(
-                  // 🔥 IMPORTANT
                   child: MarqueeText(
                     text: status,
                     style: GoogleFonts.poppins(
-                      color: status.toLowerCase().contains("live")
+                      color: status
+                              .toLowerCase()
+                              .contains("live")
                           ? Colors.redAccent
                           : Colors.white60,
                       fontSize: 12,
@@ -94,12 +134,15 @@ class MatchCard extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // ================= MATCH ROW =================
+          // ================= MATCH =================
           Row(
             children: [
-              Expanded(child: _team(icon1, team1)),
+              Expanded(
+                child: _team(icon1, team1),
+              ),
+
               SizedBox(
-                width: 70,
+                width: 90,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -107,12 +150,24 @@ class MatchCard extends StatelessWidget {
                       formattedTime,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.aBeeZee(
-                        color: Color(0xFF00E0B8),
+                        color: const Color(0xFF00E0B8),
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
                     ),
-                    const SizedBox(height: 30),
+
+                    const SizedBox(height: 4),
+
+                    Text(
+                      getGMT(),
+                      style: GoogleFonts.poppins(
+                        color: Colors.white54,
+                        fontSize: 10,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
                     Text(
                       "VS",
                       style: GoogleFonts.acme(
@@ -123,7 +178,10 @@ class MatchCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(child: _team(icon2, team2)),
+
+              Expanded(
+                child: _team(icon2, team2),
+              ),
             ],
           ),
         ],
@@ -131,10 +189,14 @@ class MatchCard extends StatelessWidget {
     );
   }
 
-  Widget _team(IconData icon, String name) {
+  Widget _team(
+    IconData icon,
+    String name,
+  ) {
     const int maxLengthForStatic = 10;
 
-    final bool shouldAnimate = name.length > maxLengthForStatic;
+    final bool shouldAnimate =
+        name.length > maxLengthForStatic;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -145,12 +207,19 @@ class MatchCard extends StatelessWidget {
             color: const Color(0xFF08131F),
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFF00E0B8).withValues(alpha: 0.35),
+              color: const Color(0xFF00E0B8)
+                  .withValues(alpha: 0.35),
             ),
           ),
-          child: Icon(icon, color: const Color(0xFF00E0B8), size: 22),
+          child: Icon(
+            icon,
+            color: const Color(0xFF00E0B8),
+            size: 22,
+          ),
         ),
+
         const SizedBox(height: 6),
+
         SizedBox(
           height: 18,
           width: double.infinity,
