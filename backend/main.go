@@ -2,10 +2,8 @@ package main
 
 import (
 	"log"
-
 	"backend/config"
 	"backend/routes"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
@@ -33,5 +31,5 @@ func main() {
 
 	routes.SetupRoutes(app)
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen("0.0.0.0:3000"))
 }
