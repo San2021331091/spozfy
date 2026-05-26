@@ -262,15 +262,6 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ---
 
-# Recommended Server
-
-* Ubuntu 22.04
-* Nginx
-* PostgreSQL 15+
-* PM2 (for admin panel)
-
----
-
 # Security Notes
 
 * Never expose `.env`
