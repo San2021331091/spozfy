@@ -286,6 +286,6 @@ Spozfy Team
 # APK Link : [Download apk](https://drive.google.com/file/d/16UIXtmVeGMznD-HgVigMtNjF63yOCZp6/view?usp=sharing)
 # AAB Link : [Download aab](https://drive.google.com/file/d/1K9d_QAODz19sa87u9cE-dS9ER1yBER1z/view?usp=sharing)
 
-# Admin Link : [Download admin panel] (https://afg-cb8a.onrender.com/)
+# Admin Link : [Download admin panel](https://afg-cb8a.onrender.com/)
 
-# Landing page link: (https://soft-khapse-d251f4.netlify.app/)
+# Landing page link: [Landing Page](https://soft-khapse-d251f4.netlify.app/)
