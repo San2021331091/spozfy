@@ -285,7 +285,7 @@ Spozfy Team
 
 # APK Link : [Download apk](https://drive.google.com/file/d/16UIXtmVeGMznD-HgVigMtNjF63yOCZp6/view?usp=sharing)
 # AAB Link : [Download aab](https://drive.google.com/file/d/1K9d_QAODz19sa87u9cE-dS9ER1yBER1z/view?usp=sharing)
-# Fiber Rest API EndPoint Link: [Go to link] (https://fiber-rest.onrender.com/)
+# Fiber Rest API EndPoint Link: [Go to link](https://fiber-rest.onrender.com/)
 # Admin Link : [Admin panel](https://afg-cb8a.onrender.com/)
 
 # Landing page link: [Landing Page](https://soft-khapse-d251f4.netlify.app/)
